@@ -14,8 +14,9 @@
     $.get("/tasks").then(function(data) {
       var htmlString = "";
       $.each(data, function(index, task) {
-        htmlString += '<li><div class="view"><input class="toggle" type="checkbox"><label>' +
-                     task.title + '</label></div></li>';
+        htmlString += '<li><div class="view"><input class="toggle" type="checkbox"' +
+        (task.done ? "checked" : "") + '><label>' +
+        task.title + '</label></div></li>';
       });
       $('.todo-list').html(htmlString);
     });
