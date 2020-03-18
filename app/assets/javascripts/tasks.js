@@ -25,7 +25,7 @@ $(document).ready(function() {
 
   $('#new-task-form').submit(function(e) {
     e.preventDefault();
-    const payload = {
+    var payload = {
       task: {
         title: $('.new-task').val()
       }
