@@ -14,18 +14,6 @@
 
 <script>
   $(document).ready(function() {
-    $('#new-task-form').submit(function(e) {
-      e.preventDefault();
-      const payload = {
-        task: {
-          title: $('.new-task').val()
-        }
-      };
-      $.post("/tasks", payload).then(function(data) {
-        console.log("Successfully POSTed a new task.");
-      });
-    });
-
     function taskHtml(task) {
       return '<li><div class="view"><input class="toggle" type="checkbox" data-id="' +
         task.id + '" ' + (task.done ? "checked" : "") + '><label>' +
@@ -48,6 +36,18 @@
       });
       $('.todo-list').html(htmlString);
       $('.toggle').change(toggleTask);
+    });
+
+    $('#new-task-form').submit(function(e) {
+      e.preventDefault();
+      const payload = {
+        task: {
+          title: $('.new-task').val()
+        }
+      };
+      $.post("/tasks", payload).then(function(data) {
+        $('.todo-list').append(taskHtml(data));
+      });
     });
   });
 </script>
