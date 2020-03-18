@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
+  describe "tasks#create" do
+    it "should allow a task to be created" do
+      init_count = Task.count
+      title = "Complete Lesson 15"
+      post :create, params: {task: {title: title}}
+      expect(response).to have_http_status(:success)
+      expect(Task.count).to eq(init_count + 1)
+      resp_val = ActiveSupport::JSON.decode(@response.body)
+      expect(resp_val['title']).to eq(title)
+      expect(Task.last.title).to eq(title)
+    end
+  end
+
   describe "tasks#index" do
     it "should list the tasks in the database" do
       task1 = FactoryBot.create(:task)

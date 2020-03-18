@@ -1,6 +1,9 @@
 <section class="spa">
   <header class="spa-header">
     <h1>todos</h1>
+    <form id="new-task-form">
+      <input type="text" class="new-task" />
+    </form>
   </header>
 
   <section class="spa-main">
@@ -11,6 +14,11 @@
 
 <script>
   $(document).ready(function() {
+    $('#new-task-form').submit(function(e) {
+      e.preventDefault();
+      console.log("Task: " + $('.new-task').val());
+    });
+
     function taskHtml(task) {
       return '<li><div class="view"><input class="toggle" type="checkbox" data-id="' +
         task.id + '" ' + (task.done ? "checked" : "") + '><label>' +
