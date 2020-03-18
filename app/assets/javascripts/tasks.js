@@ -33,6 +33,7 @@ $(document).ready(function() {
     $.post("/tasks", payload).then(function(data) {
       $('.todo-list').append(taskHtml(data));
       $('.toggle').click(toggleTask);
+      $('.new-task').val('');
     });
   });
 });
