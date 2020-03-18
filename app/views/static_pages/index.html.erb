@@ -16,7 +16,14 @@
   $(document).ready(function() {
     $('#new-task-form').submit(function(e) {
       e.preventDefault();
-      console.log("Task: " + $('.new-task').val());
+      const payload = {
+        task: {
+          title: $('.new-task').val()
+        }
+      };
+      $.post("/tasks", payload).then(function(data) {
+        console.log("Successfully POSTed a new task.");
+      });
     });
 
     function taskHtml(task) {
