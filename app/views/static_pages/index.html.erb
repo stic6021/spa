@@ -21,14 +21,10 @@
       $('.todo-list').html(htmlString);
 
       $('.toggle').change(function(e) {
-        const itemId = $(e.target).data('id');
-        console.log(itemId);
-        const checkboxValue = Boolean($(e.target).is(':checked'));
-        console.log("done:", checkboxValue);
-        $.post("/tasks/" + itemId, {
+        $.post("/tasks/" + $(e.target).data('id'), {
           _method: "PUT",
           task: {
-            done: checkboxValue
+            done: Boolean($(e.target).is(':checked'))
           }
         });
       });
