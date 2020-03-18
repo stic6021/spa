@@ -14,11 +14,24 @@
     $.get("/tasks").then(function(data) {
       var htmlString = "";
       $.each(data, function(index, task) {
-        htmlString += '<li><div class="view"><input class="toggle" type="checkbox"' +
-        (task.done ? "checked" : "") + '><label>' +
+        htmlString += '<li><div class="view"><input class="toggle" type="checkbox" data-id="' +
+        task.id + '" ' + (task.done ? "checked" : "") + '><label>' +
         task.title + '</label></div></li>';
       });
       $('.todo-list').html(htmlString);
+
+      $('.toggle').change(function(e) {
+        const itemId = $(e.target).data('id');
+        console.log(itemId);
+        const checkboxValue = Boolean($(e.target).is(':checked'));
+        console.log("done:", checkboxValue);
+        $.post("/tasks/" + itemId, {
+          _method: "PUT",
+          task: {
+            done: checkboxValue
+          }
+        });
+      });
     });
   });
 </script>
