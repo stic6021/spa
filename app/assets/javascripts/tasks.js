@@ -1,6 +1,8 @@
 $(document).ready(function() {
   function taskHtml(task) {
-    return '<li><div class="view"><input class="toggle" type="checkbox" data-id="' +
+    return '<li class="' + (task.done ? "completed" : "") +
+      '" id="listItem-' + task.id + '">' +
+      '<div class="view"><input class="toggle" type="checkbox" data-id="' +
       task.id + '" ' + (task.done ? "checked" : "") + '><label>' +
       task.title + '</label></div></li>';
   }
@@ -11,6 +13,9 @@ $(document).ready(function() {
       task: {
         done: Boolean($(e.target).is(':checked'))
       }
+    }).then(function(data) {
+      $("#listItem-" + data.id).replaceWith(taskHtml(data));
+      $('.toggle').change(toggleTask);
     });
   }
 
